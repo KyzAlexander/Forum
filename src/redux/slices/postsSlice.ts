@@ -1,6 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import api from "../../axiosConfig";
-import { Post } from "../../types/postTypes";
+import api from "../../axios/axiosConfig";
+
+interface Post {
+  id: number;
+  userId: number;
+  title: string;
+  body: string;
+  liked: boolean;
+  favorite: boolean;
+}
 
 interface PostsState {
   posts: Post[];
@@ -30,9 +38,15 @@ const postsSlice = createSlice({
       state.posts = state.posts.filter((post) => post.id !== action.payload);
     },
     toggleLike: (state, action: PayloadAction<number>) => {
-      const post = state.posts.find((post) => post.id === action.payload);
+      const post = state.posts.find((p) => p.id === action.payload);
       if (post) {
         post.liked = !post.liked;
+      }
+    },
+    toggleFavorite: (state, action: PayloadAction<number>) => {
+      const post = state.posts.find((p) => p.id === action.payload);
+      if (post) {
+        post.favorite = !post.favorite;
       }
     },
   },
@@ -53,5 +67,6 @@ const postsSlice = createSlice({
   },
 });
 
-export const { addPost, removePost, toggleLike } = postsSlice.actions;
+export const { addPost, removePost, toggleLike, toggleFavorite } =
+  postsSlice.actions;
 export default postsSlice.reducer;
