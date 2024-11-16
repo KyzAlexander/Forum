@@ -9,10 +9,12 @@ interface Comment {
 
 interface CommentsState {
   comments: Record<number, Comment[]>;
+  loading: boolean;
 }
 
 const initialState: CommentsState = {
   comments: {},
+  loading: false,
 };
 
 export const fetchCommentsByPostId = createAsyncThunk(

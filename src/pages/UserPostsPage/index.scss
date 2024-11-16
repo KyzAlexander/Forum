@@ -90,3 +90,39 @@
     }
   }
 }
+
+// .loading-spinner {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+//   font-size: 1.5rem;
+//   color: #007bff;
+
+//   p {
+//     font-weight: bold;
+//   }
+// }
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  &:before {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ddd;
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
