@@ -7,21 +7,15 @@ import {
   toggleFavorite,
   toggleLike,
 } from "../../redux/slices/postsSlice";
-import { Link } from "react-router-dom";
 import { fetchCommentsByPostId } from "../../redux/slices/commentsSlice";
 
 import "./index.scss";
+import UserWithPosts from "../../components/UserWithPosts/UserWithPosts";
 
 const UserPostsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  // Получение пользователей и постов из состояния
-
-  //БЫЛО ДО ИЗМЕНЕНИЯ
-  // const {users} = useSelector((state: RootState) => state.users.users);
-  // const posts = useSelector((state: RootState) => state.posts.posts);
-  // const comments = useSelector((state: RootState) => state.comments.comments);
-  // const [filteredUserId, setFilteredUserId] = useState<number | null>(null);
+  // Получение пользователей и постов из состояния  
 
   const { users, loading: usersLoading } = useSelector(
     (state: RootState) => state.users
@@ -35,8 +29,6 @@ const UserPostsPage: React.FC = () => {
   const [filteredUserId, setFilteredUserId] = useState<number | null>(null);
 
   const isLoading = postsLoading || usersLoading || commentsLoading;
-
-  console.log(users);
 
 
   useEffect(() => {
@@ -53,10 +45,6 @@ const UserPostsPage: React.FC = () => {
     });
   }, [dispatch, posts, comments]);
 
-  // Фильтрация постов по ID пользователя
-  const filteredPosts = filteredUserId
-    ? posts.filter((post) => post.userId === filteredUserId)
-    : posts;
 
   return (
     <>
@@ -88,51 +76,29 @@ const UserPostsPage: React.FC = () => {
 
           {/* Отображение пользователей и их постов */}
           <div className="user-list">
-            {users.map((user) => (
-              <div key={user.id} className="user">
-                <h2>{user.name}</h2>
-                <p>Email: {user.email}</p>
-
-                <div className="posts">
-                  {filteredPosts
-                    .filter((post) => post.userId === user.id)
-                    .map((post) => (
-                      <div key={post.id} className="post">
-                        <Link to={`/post/${post.id}`}>
-                          <h3>{post.title}</h3>
-                        </Link>
-                        <p>{post.body}</p>
-
-                        {/* Лайк и избранное */}
-                        <div className="post-actions">
-                          <button onClick={() => dispatch(toggleLike(post.id))}>
-                            {post.liked ? "Unlike" : "Like"}
-                          </button>
-                          <button
-                            onClick={() => dispatch(toggleFavorite(post.id))}
-                          >
-                            {post.favorite
-                              ? "Remove from Favorites"
-                              : "Add to Favorites"}
-                          </button>
-                        </div>
-
-                        {/* Комментарии */}
-                        {/* <div className="comments-section">
-                          <h4>Comments</h4>
-                          <ul>
-                            {(comments[post.id] || []).map((comment) => (
-                              <li key={comment.id}>                                
-                                <p>{comment.body}</p>
-                              </li>
-                            ))}
-                          </ul>
-                        </div> */}
-                      </div>
-                    ))}
-                </div>
-              </div>
-            ))}
+            {filteredUserId === null
+              ? users.map((user) => (
+                <UserWithPosts
+                  key={user.id}
+                  user={user}
+                  posts={posts.filter((post) => post.userId === user.id)}
+                  comments={comments}
+                  onToggleLike={(postId) => dispatch(toggleLike(postId))}
+                  onToggleFavorite={(postId) => dispatch(toggleFavorite(postId))}
+                />
+              ))
+              : users
+                .filter((user) => user.id === filteredUserId)
+                .map((user) => (
+                  <UserWithPosts
+                    key={user.id}
+                    user={user}
+                    posts={posts.filter((post) => post.userId === user.id)}
+                    comments={comments}
+                    onToggleLike={(postId) => dispatch(toggleLike(postId))}
+                    onToggleFavorite={(postId) => dispatch(toggleFavorite(postId))}
+                  />
+                ))}
           </div>
         </div>
       )}
