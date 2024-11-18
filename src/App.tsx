@@ -6,6 +6,8 @@ import './styles/_App.scss';
 import LoginPage from './pages/LoginPage/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
+import UserAccountPage from './pages/UserAccountPage/UserAccountPage';
+
 
 
 function App() {
@@ -33,6 +35,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/user/:userId"
+            element={
+              <ProtectedRoute allowedRoles={['user', 'admin']}>
+                <UserAccountPage />
+              </ProtectedRoute>
+            }
+          />
+
+
 
           <Route path="/" element={<UserPostsPage />} />
           <Route path="/post/:postId" element={<PostDetail />} />

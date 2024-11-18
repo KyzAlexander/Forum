@@ -34,7 +34,9 @@ const UserWithPosts: React.FC<UserWithPostsProps> = ({
   onToggleFavorite,
 }) => (
   <div className="user">
-    <h2>{user.name}</h2>
+    <Link to={`/user/${user.id}`}>
+      <h2>{user.name}</h2>
+    </Link>
     <p>Email: {user.email}</p>
     <div className="posts">
       {posts.map((post) => (

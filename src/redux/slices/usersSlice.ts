@@ -24,6 +24,14 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   return response.data;
 });
 
+export const fetchUserById = createAsyncThunk(
+  "users/fetchUserById",
+  async (userId: number) => {
+    const response = await api.get(`/users/${userId}`);
+    return response.data;
+  }
+);
+
 const usersSlice = createSlice({
   name: "users",
   initialState,

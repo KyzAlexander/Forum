@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import api from "../../axios/axiosConfig";
 
-interface Post {
+export interface Post {
   id: number;
   userId: number;
   title: string;
@@ -27,15 +27,28 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   return response.data;
 });
 
+export const fetchPostsByUserId = createAsyncThunk(
+  "posts/fetchPostsByUserId",
+  async (userId: number) => {
+    const response = await api.get(`/posts?userId=${userId}`);
+    return response.data;
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    addPost: (state, action: PayloadAction<Post>) => {
-      state.posts.push(action.payload);
+    addPost: (state, action: PayloadAction<Omit<Post, "id">>) => {
+      const newPost = {
+        id: state.posts.length + 1,
+        ...action.payload,
+      };
+      state.posts.push(newPost);
     },
-    removePost: (state, action: PayloadAction<number>) => {
-      state.posts = state.posts.filter((post) => post.id !== action.payload);
+    deletePost: (state, action: PayloadAction<number>) => {
+      const postId = action.payload;
+      state.posts = state.posts.filter((post) => post.id !== postId);
     },
     toggleLike: (state, action: PayloadAction<number>) => {
       const post = state.posts.find((p) => p.id === action.payload);
@@ -67,6 +80,9 @@ const postsSlice = createSlice({
   },
 });
 
-export const { addPost, removePost, toggleLike, toggleFavorite } =
+export const deletePostById = (postId: number) => (dispatch: any) => {
+  dispatch(deletePost(postId));
+};
+export const { addPost, deletePost, toggleLike, toggleFavorite } =
   postsSlice.actions;
 export default postsSlice.reducer;
