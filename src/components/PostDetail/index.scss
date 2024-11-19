@@ -23,6 +23,28 @@
     line-height: 1.6;
     margin-bottom: 30px;
   }
+// ****************************************************
+  .action-btn {
+    background-color: #ccc; // Серый фон по умолчанию    
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #bbb; // Темнее при наведении
+    }
+
+    &.active {
+      background-color: #ff69b4; // Розовый фон для активного состояния
+    }
+  }
+// ************************************************
 
   /* Кнопки лайков и добавления в избранное */
   .post-buttons {

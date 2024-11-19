@@ -55,6 +55,9 @@ const postsSlice = createSlice({
       const post = state.posts.find((p) => p.id === action.payload);
       if (post) {
         post.liked = !post.liked;
+        if (post.liked) {
+          post.disliked = false;
+        }
       }
     },
     toggleDislike: (state, action: PayloadAction<number>) => {

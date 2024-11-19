@@ -3,8 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { fetchCommentsByPostId } from '../../redux/slices/commentsSlice';
-import { toggleLike, toggleDislike, toggleFavorite } from '../../redux/slices/postsSlice';
+import { toggleLike, toggleDislike, toggleFavorite, Post } from '../../redux/slices/postsSlice';
 import { addComment } from '../../redux/slices/commentsSlice';
+import { AiFillDislike, AiFillLike } from "react-icons/ai"
+import { FaStar } from "react-icons/fa";
+
 import './index.scss';
 
 const PostDetail: React.FC = () => {
@@ -24,13 +27,39 @@ const PostDetail: React.FC = () => {
     }
   }, [dispatch, postId]);
 
-  if (!post) {
-    return <div>Post not found</div>;
-  }
+  const handleLike = (post: Post) => {
+    if (!post.liked) {
+      dispatch(toggleLike(post.id));
+      if (post.disliked) {
+        dispatch(toggleDislike(post.id)); // Убираем дизлайк, если был нажат
+      }
+    } else {
+      dispatch(toggleLike(post.id)); // Снимаем лайк
+    }
+  };
+
+  const handleDislike = (post: Post) => {
+    if (!post.disliked) {
+      dispatch(toggleDislike(post.id));
+      if (post.liked) {
+        dispatch(toggleLike(post.id)); // Убираем лайк, если был нажат
+      }
+    } else {
+      dispatch(toggleDislike(post.id)); // Снимаем дизлайк
+    }
+  };
 
   const handleAddComment = (commentBody: string) => {
     dispatch(addComment({ postId: Number(postId), body: commentBody }));
   };
+
+  console.log(post);
+
+
+  if (!post) {
+    return <div>Post not found</div>;
+  }
+
 
   return (
     <div className="post-detail">
@@ -39,16 +68,37 @@ const PostDetail: React.FC = () => {
 
       {/* Кнопки лайков, дизлайков и добавления в избранное */}
 
-      <button onClick={() => dispatch(toggleLike(post.id))}>
+
+      {/* <button onClick={() => dispatch(toggleLike(post.id))}>
         {post.liked ? 'Unlike' : 'Like'}
       </button>
       <button onClick={() => dispatch(toggleDislike(post.id))}>
         {post.disliked ? 'Remove Dislike' : 'Dislike'}
+      </button> */}
+      {/* //---------------------------------------------------------------------------- */}
+      {/* <button onClick={() => handleLike(post)}>
+        {post.liked ? 'Unlike' : 'Like'}
       </button>
+      <button onClick={() => handleDislike(post)}>
+        {post.disliked ? 'Remove Dislike' : 'Dislike'}
+      </button> */}
 
-      <button onClick={() => dispatch(toggleFavorite(post.id))}>
-        {post.favorite ? 'Remove from Favorites' : 'Add to Favorites'}
-      </button>
+      <div
+        className="like-btn"
+        onClick={() => handleLike(post)}
+      >
+        <AiFillLike size={30} color={post.liked ? "f0768b" : "#ccc"} />
+      </div>
+      <div
+        className="dislike-btn"
+        onClick={() => handleDislike(post)}
+      >
+        <AiFillDislike size={30} color={post.disliked ? "f0768b" : "#ccc"} />
+      </div>
+
+      <div className="favorites-btn" onClick={() => dispatch(toggleFavorite(post.id))}>
+        <FaStar size={30} color={post.favorite ? "#ffd700" : "#ccc"} />
+      </div>
 
       {/* Комментарии */}
       <div className="comments-section">

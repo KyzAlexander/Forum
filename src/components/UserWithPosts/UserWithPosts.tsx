@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { AiFillDislike, AiFillLike } from "react-icons/ai"
+import { FaStar } from "react-icons/fa";
 
 import "./index.scss";
 
@@ -51,7 +53,7 @@ const UserWithPosts: React.FC<UserWithPostsProps> = ({
 
           {/* Лайк и избранное */}
           <div className="post-actions">
-            <button onClick={() => onToggleLike(post.id)}>
+            {/* <button onClick={() => onToggleLike(post.id)}>
               {post.liked ? "Unlike" : "Like"}
             </button>
             <button onClick={() => onToggleDislike(post.id)}>
@@ -59,7 +61,23 @@ const UserWithPosts: React.FC<UserWithPostsProps> = ({
             </button>
             <button onClick={() => onToggleFavorite(post.id)}>
               {post.favorite ? "Remove from Favorites" : "Add to Favorites"}
-            </button>
+            </button> */}
+            <div
+              className="like-btn"
+              onClick={() => onToggleLike}
+            >
+              <AiFillLike size={30} color={post.liked ? "f0768b" : "#ccc"} />
+            </div>
+            <div
+              className="dislike-btn"
+              onClick={() => onToggleDislike}
+            >
+              <AiFillDislike size={30} color={post.disliked ? "f0768b" : "#ccc"} />
+            </div>
+
+            <div className="favorites-btn" onClick={() => onToggleFavorite}>
+              <FaStar size={30} color={post.favorite ? "#ffd700" : "#ccc"} />
+            </div>
           </div>
 
           {/* Комментарии */}
