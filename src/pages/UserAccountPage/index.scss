@@ -1,13 +1,13 @@
 .user-detail-page {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   align-items: center;
   background-color: #2f2f2f;  
   color: #e0e0e0; 
   padding: 20px;
   border-radius: 8px;
   margin: 20px auto;
-  max-width: 900px;
+  max-width: 1400px;
   width: 100%;
   
   .back-button {
@@ -34,7 +34,7 @@
 
   .user-info, .user-edit-form {
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -70,7 +70,7 @@
     }
   }
 
-  .user-edit-form button, .user-info button {
+  .user-edit-form button, .user-info button {    
     padding: 10px 20px;
     background-color: #28a745;
     color: white;
@@ -89,40 +89,42 @@
     display: flex;    
     flex-wrap: wrap; /* Делаем так, чтобы посты переносились на новую строку */
     gap: 20px; /* Расстояние между постами */
-    justify-content: flex-start;
-  }
-  
-  .post {
-    background-color: #444;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: calc(33.333% - 20px); /* Каждому посту выделяется треть ширины контейнера с учетом отступов */
-    color: white;
-    
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-    
-    p {
-      font-size: 1rem;
-      margin-bottom: 15px;
-    }
-    
-    button {
-      background-color: #ff4c4c; 
+    justify-content: space-around;
+    margin-bottom: 20px;
+
+    .post {
+      background-color: #444;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: calc(33.333% - 20px); /* Каждому посту выделяется треть ширины контейнера с учетом отступов */
       color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
       
-      &:hover {
-        background-color: #d13f3f;
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+      
+      p {
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+      
+      button {
+        background-color: #ff4c4c; 
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        
+        &:hover {
+          background-color: #d13f3f;
+        }
       }
     }
-  }
+  } 
+  
 
   .new-post-form {
     width: 100%;

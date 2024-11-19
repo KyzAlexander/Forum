@@ -82,23 +82,25 @@ const PostDetail: React.FC = () => {
       <button onClick={() => handleDislike(post)}>
         {post.disliked ? 'Remove Dislike' : 'Dislike'}
       </button> */}
+      <div className='post-buttons'>
+        <div
+          className="like-btn"
+          onClick={() => handleLike(post)}
+        >
+          <AiFillLike size={30} color={post.liked ? "f0768b" : "#ccc"} />
+        </div>
+        <div
+          className="dislike-btn"
+          onClick={() => handleDislike(post)}
+        >
+          <AiFillDislike size={30} color={post.disliked ? "f0768b" : "#ccc"} />
+        </div>
 
-      <div
-        className="like-btn"
-        onClick={() => handleLike(post)}
-      >
-        <AiFillLike size={30} color={post.liked ? "f0768b" : "#ccc"} />
-      </div>
-      <div
-        className="dislike-btn"
-        onClick={() => handleDislike(post)}
-      >
-        <AiFillDislike size={30} color={post.disliked ? "f0768b" : "#ccc"} />
+        <div className="favorites-btn" onClick={() => dispatch(toggleFavorite(post.id))}>
+          <FaStar size={30} color={post.favorite ? "#ffd700" : "#ccc"} />
+        </div>
       </div>
 
-      <div className="favorites-btn" onClick={() => dispatch(toggleFavorite(post.id))}>
-        <FaStar size={30} color={post.favorite ? "#ffd700" : "#ccc"} />
-      </div>
 
       {/* Комментарии */}
       <div className="comments-section">
@@ -136,7 +138,7 @@ export const AddCommentForm: React.FC<{ onAddComment: (commentBody: string) => v
         onChange={(e) => setComment(e.target.value)}
         placeholder="Add a comment"
       />
-      <button type="submit">Submit</button>
+      <button type="submit">Add comment</button>
     </form>
   );
 };

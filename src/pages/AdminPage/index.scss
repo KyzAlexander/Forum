@@ -1,106 +1,144 @@
 .admin-page {
-  padding: 20px;  
+  padding: 20px;
   background-color: #333333;
-  color: #333;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
 
   &__title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
-    margin-bottom: 20px;    
-    color: #ffffff; 
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff;
   }
 
   &__section-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-top: 30px;
-    margin-bottom: 15px;    
-    color: #ffffff; 
+    margin-bottom: 20px;
+    border-bottom: 2px solid #555555;
+    padding-bottom: 5px;
+    color: #ffffff;
   }
 
   &__loading {
-    font-size: 1.2rem;
-    color: #777;
+    font-size: 1.4rem;
+    color: #aaaaaa;
+    text-align: center;
+    margin: 20px 0;
   }
 }
 
-/* Пользователи */
-.user-card {  
+.user-card {
   background-color: #444444;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+  &:hover {   
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  }  
 
   &__info {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;    
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 10px; 
+    margin-bottom: 15px;
   }
+
   &__name {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin: 0;
     color: #ffffff;
   }
 
   &__email {
-    font-size: 1rem;    
-    color: #d0d0d0;
+    font-size: 1.1rem;
+    color: #bbbbbb;
   }
 
   &__posts-title {
-    margin-top: 15px;
-    font-size: 1.2rem;    
+    margin-top: 20px;
+    font-size: 1.3rem;
     color: #ffffff;
+    border-bottom: 1px solid #555555;
+    padding-bottom: 5px;
   }
 }
 
-/* Посты */
-.post-card {  
-  background-color: #555555;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  &__title {
-    font-size: 1rem;
-    font-weight: bold;    
-    color: #ffffff;
-  }
-}
-
-/* Форма редактирования пользователя */
-.edit-form {
+.post-card {
+  background-color: #555555;  
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 10px;
-  max-width: 300px;
-  width: 100%;
+  &:hover {
+    background-color: #666464; 
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    color: #dddddd;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  /* Контейнер для кнопок */
+  .post-card__buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+  }
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+  max-width: 350px;
 
   input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #555;    
+    border-radius: 8px;
+    font-size: 1rem;    
+    background-color: #666;
+    color: #ffffff;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #007bff;
   }
 
   .button--save {
     background-color: #28a745;
     color: white;
-    padding: 8px 15px;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 8px;
+    cursor: pointer;    
+    font-size: 1rem;    
+    transition: background-color 0.3s ease;
 
     &:hover {
       background-color: #218838;
@@ -110,60 +148,33 @@
   .button--cancel {
     background-color: #dc3545;
     color: white;
-    padding: 8px 15px;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 8px;
+    cursor: pointer;    
+    font-size: 1rem;    
+    transition: background-color 0.3s ease;
 
     &:hover {
       background-color: #c82333;
     }
   }
 }
-// !!!ВОЗМОЖНО НЕ НАДО 
-/* Добавление поста */
-// .add-post {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 10px;
-//   margin-top: 15px;
 
-//   &__select, &__input, &__textarea {
-//     padding: 8px;
-//     border: 1px solid #ccc;
-//     border-radius: 5px;
-//     font-size: 1rem;
-//     width: 100%;
-//   }
-
-//   &__textarea {
-//     resize: none;
-//     height: 100px;
-//   }
-
-//   .button--add {
-//     background-color: #007bff;
-//     color: white;
-//     padding: 10px 15px;
-//     border: none;
-//     border-radius: 5px;
-//     cursor: pointer;
-
-//     &:hover {
-//       background-color: #0056b3;
-//     }
-//   }
-// }
-
-/* Общие кнопки */
 .button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;  
+  cursor: pointer;
+  border: none; 
+  transition: background-color 0.3s ease;
+
+  /* Индивидуальные стили для каждой кнопки */
   &--edit {
     background-color: #ffc107;
     color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    max-width: 70px;
+    width: 100%;
 
     &:hover {
       background-color: #e0a800;
@@ -173,10 +184,6 @@
   &--delete {
     background-color: #dc3545;
     color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 
     &:hover {
       background-color: #c82333;
@@ -186,10 +193,6 @@
   &--top {
     background-color: #17a2b8;
     color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 
     &:hover {
       background-color: #138496;
@@ -199,15 +202,13 @@
   &--swap {
     background-color: #6c757d;
     color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 
     &:hover {
       background-color: #5a6268;
     }
   }
 }
+
+
 
 

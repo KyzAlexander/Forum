@@ -114,7 +114,7 @@ const UserAccountPage: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter password"
         />
-        <button onClick={handleLogin}>Submit</button>
+        <button onClick={handleLogin}>Ok</button>
       </div>
     );
   }

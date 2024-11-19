@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, updateUserProfile } from "../../redux/slices/usersSlice";
-import { fetchPosts, addPost, deletePost, movePostToTop, swapPosts } from "../../redux/slices/postsSlice";
+import { fetchPosts, deletePost, movePostToTop, swapPosts } from "../../redux/slices/postsSlice";
 import { AppDispatch, RootState } from "../../redux/store";
 
 import "./index.scss";
@@ -19,14 +19,11 @@ const AdminPage: React.FC = () => {
 
   const isLoading = usersLoading || postsLoading
 
+  const [filteredUserId, setFilteredUserId] = useState<number | null>(null);
+
   const [editingUser, setEditingUser] = useState<number | null>(null);
   const [editedName, setEditedName] = useState("");
   const [editedEmail, setEditedEmail] = useState("");
-
-
-  // **-ВОзможно не надо
-  // const [newPost, setNewPost] = useState({ title: "", body: "" });
-  // const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -45,26 +42,34 @@ const AdminPage: React.FC = () => {
   }, [users, editingUser]);
 
 
-  // ** ВОзможно не надо
-  // const handleAddPost = () => {
-  //   if (selectedUserId) {
-  //     dispatch(
-  //       addPost({
-  //         userId: selectedUserId,
-  //         title: newPost.title,
-  //         body: newPost.body,
-  //         liked: false,
-  //         disliked: false,
-  //         favorite: false,
-  //       })
-  //     );
-  //     setNewPost({ title: "", body: "" });
-  //   }
-  // };
-
   return (
     <div className="admin-page">
       <h1 className="admin-page__title">Admin Panel</h1>
+
+
+      {/* **************************************** */}
+
+      {/* *********ДОБАВИТЬ ФИЛЬТ !!! */}
+
+      {/* <div className="filter">
+            <label>Filter by user:</label>
+            <select
+              value={filteredUserId || ""}
+              onChange={(e) =>
+                setFilteredUserId(Number(e.target.value) || null)
+              }
+            >
+              <option value="">All Users</option>
+              {users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+          </div> */}
+
+
+      {/* **************************************************** */}
 
       <h2 className="admin-page__section-title">Users</h2>
       {isLoading ? (
@@ -85,7 +90,7 @@ const AdminPage: React.FC = () => {
                       email: editedEmail,
                     })
                   );
-                  setEditingUser(null); // Закрываем форму редактирования
+                  setEditingUser(null);
                 }}
                 className="edit-form"
               >
@@ -132,77 +137,44 @@ const AdminPage: React.FC = () => {
                 <div className="post-card" key={post.id}>
                   <p className="post-card__title">{post.title}</p>
                   <p className="post-card__subtitle">{post.body}</p>
-                  <button
-                    className="button button--delete"
-                    onClick={() => dispatch(deletePost(post.id))}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="button button--top"
-                    onClick={() => dispatch(movePostToTop(post.id))}
-                  >
-                    Move to Top
-                  </button>
-                  {index > 0 && (
+                  <div className="post-card__buttons">
                     <button
-                      className="button button--swap"
-                      onClick={() =>
-                        dispatch(
-                          swapPosts({
-                            userId: user.id,
-                            postId1: post.id,
-                            postId2: posts.filter((p) => p.userId === user.id)[
-                              index - 1
-                            ].id,
-                          })
-                        )
-                      }
+                      className="button button--delete"
+                      onClick={() => dispatch(deletePost(post.id))}
                     >
-                      Swap with Above
+                      Delete
                     </button>
-                  )}
+                    <button
+                      className="button button--top"
+                      onClick={() => dispatch(movePostToTop(post.id))}
+                    >
+                      Move to Top
+                    </button>
+                    {index > 0 && (
+                      <button
+                        className="button button--swap"
+                        onClick={() =>
+                          dispatch(
+                            swapPosts({
+                              userId: user.id,
+                              postId1: post.id,
+                              postId2: posts.filter((p) => p.userId === user.id)[
+                                index - 1
+                              ].id,
+                            })
+                          )
+                        }
+                      >
+                        Swap with Above
+                      </button>
+                    )}
+                  </div>
+
                 </div>
               ))}
           </div>
         ))
       )}
-
-
-      {/* --- ЭТО НЕ НАДО ВОЗМОЖНО !!! */}
-      {/* <h2 className="admin-page__section-title">Add Post</h2>
-      <div className="add-post">
-        <select
-          className="add-post__select"
-          onChange={(e) => setSelectedUserId(Number(e.target.value))}
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Select user
-          </option>
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.name}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          className="add-post__input"
-          value={newPost.title}
-          onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-          placeholder="Post title"
-        />
-        <textarea
-          className="add-post__textarea"
-          value={newPost.body}
-          onChange={(e) => setNewPost({ ...newPost, body: e.target.value })}
-          placeholder="Post body"
-        />
-        <button className="button button--add" onClick={handleAddPost}>
-          Add Post
-        </button>
-      </div> */}
     </div>
 
   );

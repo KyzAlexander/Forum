@@ -16,7 +16,7 @@
     margin-bottom: 10px;
     text-align: center;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease;    
     &:hover {
       color: #007bff;
     }
@@ -27,6 +27,15 @@
     color: #b0b0b0; 
     margin-bottom: 15px;
     text-align: center;
+  }
+
+  .link {
+    transition: color 0.3s ease; 
+    text-decoration: underline #ffffff;
+    
+  }
+  .link:hover {
+    text-decoration: underline #007bff;   
   }
 
   .posts {
@@ -43,15 +52,22 @@
         margin-bottom: 10px;
         text-decoration: none;
         transition: color 0.3s ease;
+        &:first-letter {
+          text-transform: uppercase;
+        }
         &:hover {
           color: #007bff;
-        }
+        }        
       }
 
       p {
         font-size: 1rem;
         color: #d0d0d0; 
         margin-bottom: 15px;
+        text-align: start;
+        &:first-letter {
+          text-transform: uppercase;
+        }
       }
 
       .post-actions {
