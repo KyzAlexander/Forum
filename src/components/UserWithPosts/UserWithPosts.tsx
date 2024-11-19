@@ -15,6 +15,7 @@ interface Post {
   title: string;
   body: string;
   liked: boolean;
+  disliked: boolean;
   favorite: boolean;
 }
 
@@ -23,6 +24,7 @@ interface UserWithPostsProps {
   posts: Post[];
   comments: Record<number, { id: number; body: string }[]>;
   onToggleLike: (postId: number) => void;
+  onToggleDislike: (postId: number) => void;
   onToggleFavorite: (postId: number) => void;
 }
 
@@ -31,6 +33,7 @@ const UserWithPosts: React.FC<UserWithPostsProps> = ({
   posts,
   comments,
   onToggleLike,
+  onToggleDislike,
   onToggleFavorite,
 }) => (
   <div className="user">
@@ -50,6 +53,9 @@ const UserWithPosts: React.FC<UserWithPostsProps> = ({
           <div className="post-actions">
             <button onClick={() => onToggleLike(post.id)}>
               {post.liked ? "Unlike" : "Like"}
+            </button>
+            <button onClick={() => onToggleDislike(post.id)}>
+              {post.disliked ? 'Remove Dislike' : 'Dislike'}
             </button>
             <button onClick={() => onToggleFavorite(post.id)}>
               {post.favorite ? "Remove from Favorites" : "Add to Favorites"}

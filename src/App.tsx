@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
 import UserAccountPage from './pages/UserAccountPage/UserAccountPage';
+import AdminPage from './pages/AdminPage/AdminPage';
 
 
 
@@ -31,7 +32,7 @@ function App() {
             path="/admin-dashboard"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <AdminDashboard />
+                <AdminPage />
               </ProtectedRoute>
             }
           />

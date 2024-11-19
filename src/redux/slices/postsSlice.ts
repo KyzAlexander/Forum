@@ -7,6 +7,7 @@ export interface Post {
   title: string;
   body: string;
   liked: boolean;
+  disliked: boolean;
   favorite: boolean;
 }
 
@@ -56,10 +57,47 @@ const postsSlice = createSlice({
         post.liked = !post.liked;
       }
     },
+    toggleDislike: (state, action: PayloadAction<number>) => {
+      const post = state.posts.find((p) => p.id === action.payload);
+      if (post) {
+        post.disliked = !post.disliked;
+        if (post.disliked) {
+          post.liked = false;
+        }
+      }
+    },
     toggleFavorite: (state, action: PayloadAction<number>) => {
       const post = state.posts.find((p) => p.id === action.payload);
       if (post) {
         post.favorite = !post.favorite;
+      }
+    },
+
+    movePostToTop: (state, action: PayloadAction<number>) => {
+      const postId = action.payload;
+      const index = state.posts.findIndex((post) => post.id === postId);
+      if (index !== -1) {
+        const [post] = state.posts.splice(index, 1);
+        state.posts.unshift(post);
+      }
+    },
+    swapPosts: (
+      state,
+      action: PayloadAction<{
+        userId: number;
+        postId1: number;
+        postId2: number;
+      }>
+    ) => {
+      const { postId1, postId2 } = action.payload;
+      const index1 = state.posts.findIndex((post) => post.id === postId1);
+      const index2 = state.posts.findIndex((post) => post.id === postId2);
+
+      if (index1 !== -1 && index2 !== -1) {
+        [state.posts[index1], state.posts[index2]] = [
+          state.posts[index2],
+          state.posts[index1],
+        ];
       }
     },
   },
@@ -83,6 +121,13 @@ const postsSlice = createSlice({
 export const deletePostById = (postId: number) => (dispatch: any) => {
   dispatch(deletePost(postId));
 };
-export const { addPost, deletePost, toggleLike, toggleFavorite } =
-  postsSlice.actions;
+export const {
+  addPost,
+  deletePost,
+  toggleLike,
+  toggleDislike,
+  toggleFavorite,
+  movePostToTop,
+  swapPosts,
+} = postsSlice.actions;
 export default postsSlice.reducer;

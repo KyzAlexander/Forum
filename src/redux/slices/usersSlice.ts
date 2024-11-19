@@ -36,13 +36,25 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    // updateUserProfile: (
+    //   state,
+    //   action: PayloadAction<{ name: string; email: string }>
+    // ) => {
+    //   if (state.currentUser) {
+    //     state.currentUser.name = action.payload.name;
+    //     state.currentUser.email = action.payload.email;
+    //   }
+    // },
+
     updateUserProfile: (
       state,
-      action: PayloadAction<{ name: string; email: string }>
+      action: PayloadAction<{ id: number; name: string; email: string }>
     ) => {
-      if (state.currentUser) {
-        state.currentUser.name = action.payload.name;
-        state.currentUser.email = action.payload.email;
+      const { id, name, email } = action.payload;
+      const user = state.users.find((user) => user.id === id);
+      if (user) {
+        user.name = name;
+        user.email = email;
       }
     },
   },

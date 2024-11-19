@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { fetchUsers } from "../../redux/slices/usersSlice";
 import {
   fetchPosts,
+  toggleDislike,
   toggleFavorite,
   toggleLike,
 } from "../../redux/slices/postsSlice";
@@ -15,7 +16,6 @@ import UserWithPosts from "../../components/UserWithPosts/UserWithPosts";
 const UserPostsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  // Получение пользователей и постов из состояния  
 
   const { users, loading: usersLoading } = useSelector(
     (state: RootState) => state.users
@@ -84,6 +84,7 @@ const UserPostsPage: React.FC = () => {
                   posts={posts.filter((post) => post.userId === user.id)}
                   comments={comments}
                   onToggleLike={(postId) => dispatch(toggleLike(postId))}
+                  onToggleDislike={(postId) => dispatch(toggleDislike(postId))}
                   onToggleFavorite={(postId) => dispatch(toggleFavorite(postId))}
                 />
               ))
@@ -96,6 +97,7 @@ const UserPostsPage: React.FC = () => {
                     posts={posts.filter((post) => post.userId === user.id)}
                     comments={comments}
                     onToggleLike={(postId) => dispatch(toggleLike(postId))}
+                    onToggleDislike={(postId) => dispatch(toggleDislike(postId))}
                     onToggleFavorite={(postId) => dispatch(toggleFavorite(postId))}
                   />
                 ))}

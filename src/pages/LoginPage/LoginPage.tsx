@@ -15,10 +15,10 @@ const LoginPage: React.FC = () => {
   const handleLogin = () => {
     if (username === 'admin' && password === 'admin') {
       dispatch(login({ role: 'admin' }));
-      navigate('/admin-dashboard'); // Перенаправляем на админскую страницу
+      navigate('/admin-dashboard');
     } else if (username === 'user' && password === 'user') {
       dispatch(login({ role: 'user' }));
-      navigate('/'); // Перенаправляем на главную страницу
+      navigate('/');
     } else {
       alert('Invalid credentials');
     }

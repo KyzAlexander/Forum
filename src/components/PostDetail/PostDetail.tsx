@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { fetchCommentsByPostId } from '../../redux/slices/commentsSlice';
-import { toggleLike, toggleFavorite } from '../../redux/slices/postsSlice';
+import { toggleLike, toggleDislike, toggleFavorite } from '../../redux/slices/postsSlice';
 import { addComment } from '../../redux/slices/commentsSlice';
 import './index.scss';
 
@@ -38,9 +38,14 @@ const PostDetail: React.FC = () => {
       <p>{post.body}</p>
 
       {/* Кнопки лайков, дизлайков и добавления в избранное */}
+
       <button onClick={() => dispatch(toggleLike(post.id))}>
         {post.liked ? 'Unlike' : 'Like'}
       </button>
+      <button onClick={() => dispatch(toggleDislike(post.id))}>
+        {post.disliked ? 'Remove Dislike' : 'Dislike'}
+      </button>
+
       <button onClick={() => dispatch(toggleFavorite(post.id))}>
         {post.favorite ? 'Remove from Favorites' : 'Add to Favorites'}
       </button>
@@ -74,7 +79,7 @@ export const AddCommentForm: React.FC<{ onAddComment: (commentBody: string) => v
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='add-comment-form'>
       <input
         type="text"
         value={comment}

@@ -28,6 +28,7 @@ const UserAccountPage: React.FC = () => {
     title: "",
     body: "",
     liked: false,
+    disliked: false,
     favorite: false,
   });
 
@@ -66,6 +67,7 @@ const UserAccountPage: React.FC = () => {
     if (editableUser) {
       dispatch(
         updateUserProfile({
+          id: Number(user?.id),
           name: editableUser.name ?? "", // ?? при  undefined или null задает значение по умолчанию
           email: editableUser.email ?? "",
         })
@@ -82,10 +84,11 @@ const UserAccountPage: React.FC = () => {
           title: newPost.title,
           body: newPost.body,
           liked: false,
+          disliked: false,
           favorite: false,
         })
       );
-      setNewPost({ title: "", body: "", liked: false, favorite: false });
+      setNewPost({ title: "", body: "", liked: false, disliked: false, favorite: false });
     }
   };
 
