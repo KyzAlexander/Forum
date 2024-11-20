@@ -1,27 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchUserById, updateUserProfile } from "../../redux/slices/usersSlice";
+import {
+  fetchUserById,
+  updateUserProfile,
+} from "../../redux/slices/usersSlice";
 import { RootState, AppDispatch } from "../../redux/store";
-import { fetchPostsByUserId, addPost, Post, deletePostById } from "../../redux/slices/postsSlice";
-import { usersPasswords } from "../../constants/usersPasswords";
+import {
+  fetchPostsByUserId,
+  addPost,
+  Post,
+  deletePostById,
+} from "../../redux/slices/postsSlice";
+import { usersPasswords } from "../../constants/authorizationInfo";
 
 import "./index.scss";
-
 
 const UserAccountPage: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const { users, loading: usersLoading } = useSelector((state: RootState) => state.users);
-  const { posts, loading: postsLoading } = useSelector((state: RootState) => state.posts);
+  const { users, loading: usersLoading } = useSelector(
+    (state: RootState) => state.users
+  );
+  const { posts, loading: postsLoading } = useSelector(
+    (state: RootState) => state.posts
+  );
 
   const user = users.find((u) => u.id === Number(userId));
   const userPosts = posts.filter((post) => post.userId === Number(userId));
 
-  const [editableUser, setEditableUser] = useState({ name: user?.name, email: user?.email });
-
+  const [editableUser, setEditableUser] = useState({
+    name: user?.name,
+    email: user?.email,
+  });
 
   const [isEditing, setIsEditing] = useState(false);
   const [newPost, setNewPost] = useState<Omit<Post, "id" | "userId">>({
@@ -88,7 +101,13 @@ const UserAccountPage: React.FC = () => {
           favorite: false,
         })
       );
-      setNewPost({ title: "", body: "", liked: false, disliked: false, favorite: false });
+      setNewPost({
+        title: "",
+        body: "",
+        liked: false,
+        disliked: false,
+        favorite: false,
+      });
     }
   };
 
@@ -150,8 +169,12 @@ const UserAccountPage: React.FC = () => {
         </div>
       ) : (
         <div className="user-info">
-          <p><strong>Name:</strong> {editableUser?.name}</p>
-          <p><strong>Email:</strong> {editableUser?.email}</p>
+          <p>
+            <strong>Name:</strong> {editableUser?.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {editableUser?.email}
+          </p>
           <button onClick={() => setIsEditing(true)}>Edit</button>
         </div>
       )}
@@ -173,12 +196,16 @@ const UserAccountPage: React.FC = () => {
           type="text"
           placeholder="Title"
           value={newPost.title}
-          onChange={(e) => setNewPost((prev) => ({ ...prev, title: e.target.value }))}
+          onChange={(e) =>
+            setNewPost((prev) => ({ ...prev, title: e.target.value }))
+          }
         />
         <textarea
           placeholder="Body"
           value={newPost.body}
-          onChange={(e) => setNewPost((prev) => ({ ...prev, body: e.target.value }))}
+          onChange={(e) =>
+            setNewPost((prev) => ({ ...prev, body: e.target.value }))
+          }
         />
         <button onClick={handleAddPost}>Add Post</button>
       </div>
@@ -187,4 +214,3 @@ const UserAccountPage: React.FC = () => {
 };
 
 export default UserAccountPage;
-

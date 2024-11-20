@@ -87,8 +87,8 @@
   
   .post-list {
     display: flex;    
-    flex-wrap: wrap; /* Делаем так, чтобы посты переносились на новую строку */
-    gap: 20px; /* Расстояние между постами */
+    flex-wrap: wrap; 
+    gap: 20px; 
     justify-content: space-around;
     margin-bottom: 20px;
 
@@ -97,7 +97,7 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      width: calc(33.333% - 20px); /* Каждому посту выделяется треть ширины контейнера с учетом отступов */
+      width: calc(33.333% - 20px); 
       color: white;
       
       h3 {

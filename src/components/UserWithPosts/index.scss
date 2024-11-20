@@ -74,16 +74,25 @@
         display: flex;
         gap: 15px;
         justify-content: space-between;
-        
+
+        .like-btn, .dislike-btn, .favorites-btn {
+          cursor: pointer;
+        }      
+      }
+
+      .comments-toggle-btn {
+        margin-top: 15px;
+      
         button {
-          padding: 8px 12px;
-          font-size: 1rem;
           background-color: #007bff;
-          color: #fff;
+          color: #ffffff;
           border: none;
-          border-radius: 4px;
+          border-radius: 5px;
+          padding: 5px 10px;
+          font-size: 0.8rem;
           cursor: pointer;
           transition: background-color 0.3s ease;
+      
           &:hover {
             background-color: #0056b3;
           }

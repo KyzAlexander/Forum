@@ -9,13 +9,11 @@ import {
   toggleLike,
 } from "../../redux/slices/postsSlice";
 import { fetchCommentsByPostId } from "../../redux/slices/commentsSlice";
-
-import "./index.scss";
 import UserWithPosts from "../../components/UserWithPosts/UserWithPosts";
+import "./index.scss";
 
 const UserPostsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-
 
   const { users, loading: usersLoading } = useSelector(
     (state: RootState) => state.users
@@ -27,16 +25,15 @@ const UserPostsPage: React.FC = () => {
     (state: RootState) => state.comments
   );
   const [filteredUserId, setFilteredUserId] = useState<number | null>(null);
+  const [openComments, setOpenComments] = useState<Record<number, boolean>>({});
 
   const isLoading = postsLoading || usersLoading || commentsLoading;
-
 
   useEffect(() => {
     dispatch(fetchUsers());
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  // Загрузка комментариев для всех постов
   useEffect(() => {
     posts.forEach((post) => {
       if (!comments[post.id]) {
@@ -45,6 +42,12 @@ const UserPostsPage: React.FC = () => {
     });
   }, [dispatch, posts, comments]);
 
+  const toggleComments = (postId: number) => {
+    setOpenComments((prevState) => ({
+      ...prevState,
+      [postId]: !prevState[postId],
+    }));
+  };
 
   return (
     <>
@@ -55,8 +58,6 @@ const UserPostsPage: React.FC = () => {
       ) : (
         <div className="user-posts-page">
           <h1>User Posts</h1>
-
-          {/* Компонент фильтрации по пользователям */}
           <div className="filter">
             <label>Filter by user:</label>
             <select
@@ -73,8 +74,6 @@ const UserPostsPage: React.FC = () => {
               ))}
             </select>
           </div>
-
-          {/* Отображение пользователей и их постов */}
           <div className="user-list">
             {filteredUserId === null
               ? users.map((user) => (
@@ -83,9 +82,15 @@ const UserPostsPage: React.FC = () => {
                   user={user}
                   posts={posts.filter((post) => post.userId === user.id)}
                   comments={comments}
+                  openComments={openComments}
                   onToggleLike={(postId) => dispatch(toggleLike(postId))}
-                  onToggleDislike={(postId) => dispatch(toggleDislike(postId))}
-                  onToggleFavorite={(postId) => dispatch(toggleFavorite(postId))}
+                  onToggleDislike={(postId) =>
+                    dispatch(toggleDislike(postId))
+                  }
+                  onToggleFavorite={(postId) =>
+                    dispatch(toggleFavorite(postId))
+                  }
+                  onToggleComments={toggleComments}
                 />
               ))
               : users
@@ -96,9 +101,15 @@ const UserPostsPage: React.FC = () => {
                     user={user}
                     posts={posts.filter((post) => post.userId === user.id)}
                     comments={comments}
+                    openComments={openComments}
                     onToggleLike={(postId) => dispatch(toggleLike(postId))}
-                    onToggleDislike={(postId) => dispatch(toggleDislike(postId))}
-                    onToggleFavorite={(postId) => dispatch(toggleFavorite(postId))}
+                    onToggleDislike={(postId) =>
+                      dispatch(toggleDislike(postId))
+                    }
+                    onToggleFavorite={(postId) =>
+                      dispatch(toggleFavorite(postId))
+                    }
+                    onToggleComments={toggleComments}
                   />
                 ))}
           </div>

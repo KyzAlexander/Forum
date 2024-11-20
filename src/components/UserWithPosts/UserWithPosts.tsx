@@ -25,18 +25,22 @@ interface UserWithPostsProps {
   user: User;
   posts: Post[];
   comments: Record<number, { id: number; body: string }[]>;
+  openComments: Record<number, boolean>;
   onToggleLike: (postId: number) => void;
   onToggleDislike: (postId: number) => void;
   onToggleFavorite: (postId: number) => void;
+  onToggleComments: (postId: number) => void;
 }
 
 const UserWithPosts: React.FC<UserWithPostsProps> = ({
   user,
   posts,
   comments,
+  openComments,
   onToggleLike,
   onToggleDislike,
   onToggleFavorite,
+  onToggleComments,
 }) => (
   <div className="user">
     <Link className="link" to={`/user/${user.id}`}>
@@ -50,47 +54,41 @@ const UserWithPosts: React.FC<UserWithPostsProps> = ({
             <h3>{post.title}</h3>
           </Link>
           <p>{post.body}</p>
-
-          {/* Лайк и избранное */}
           <div className="post-actions">
-            {/* <button onClick={() => onToggleLike(post.id)}>
-              {post.liked ? "Unlike" : "Like"}
-            </button>
-            <button onClick={() => onToggleDislike(post.id)}>
-              {post.disliked ? 'Remove Dislike' : 'Dislike'}
-            </button>
-            <button onClick={() => onToggleFavorite(post.id)}>
-              {post.favorite ? "Remove from Favorites" : "Add to Favorites"}
-            </button> */}
             <div
               className="like-btn"
-              onClick={() => onToggleLike}
+              onClick={() => onToggleLike(post.id)}
             >
               <AiFillLike size={30} color={post.liked ? "f0768b" : "#ccc"} />
             </div>
             <div
               className="dislike-btn"
-              onClick={() => onToggleDislike}
+              onClick={() => onToggleDislike(post.id)}
             >
               <AiFillDislike size={30} color={post.disliked ? "f0768b" : "#ccc"} />
             </div>
 
-            <div className="favorites-btn" onClick={() => onToggleFavorite}>
+            <div className="favorites-btn" onClick={() => onToggleFavorite(post.id)}>
               <FaStar size={30} color={post.favorite ? "#ffd700" : "#ccc"} />
             </div>
           </div>
-
-          {/* Комментарии */}
-          <div className="comments-section">
-            <h4>Comments</h4>
-            <ul>
-              {(comments[post.id] || []).map((comment) => (
-                <li key={comment.id}>
-                  <p>{comment.body}</p>
-                </li>
-              ))}
-            </ul>
+          <div className="comments-toggle-btn">
+            <button onClick={() => onToggleComments(post.id)}>
+              {openComments[post.id] ? "Hide Comments" : "Show Comments"}
+            </button>
           </div>
+          {openComments[post.id] && (
+            <div className="comments-section">
+              <h4>Comments</h4>
+              <ul>
+                {(comments[post.id] || []).map((comment) => (
+                  <li key={comment.id}>
+                    <p>{comment.body}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       ))}
     </div>

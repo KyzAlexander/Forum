@@ -1,29 +1,23 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import UserPostsPage from './pages/UserPostsPage/UserPostsPage';
-import PostDetail from './components/PostDetail/PostDetail';
-
-import './styles/_App.scss';
-import LoginPage from './pages/LoginPage/LoginPage';
-import ProtectedRoute from './components/ProtectedRoute';
-import AdminDashboard from './components/AdminDashboard';
-import UserAccountPage from './pages/UserAccountPage/UserAccountPage';
-import AdminPage from './pages/AdminPage/AdminPage';
-
-
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import UserPostsPage from "./pages/UserPostsPage/UserPostsPage";
+import PostDetail from "./components/PostDetail/PostDetail";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import UserAccountPage from "./pages/UserAccountPage/UserAccountPage";
+import AdminPage from "./pages/AdminPage/AdminPage";
+import "./styles/_App.scss";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-
-
           <Route path="/login" element={<LoginPage />} />
 
           <Route
             path="/"
             element={
-              <ProtectedRoute allowedRoles={['user', 'admin']}>
+              <ProtectedRoute allowedRoles={["user", "admin"]}>
                 <UserPostsPage />
               </ProtectedRoute>
             }
@@ -31,7 +25,7 @@ function App() {
           <Route
             path="/admin-dashboard"
             element={
-              <ProtectedRoute allowedRoles={['admin']}>
+              <ProtectedRoute allowedRoles={["admin"]}>
                 <AdminPage />
               </ProtectedRoute>
             }
@@ -39,21 +33,22 @@ function App() {
           <Route
             path="/user/:userId"
             element={
-              <ProtectedRoute allowedRoles={['user', 'admin']}>
+              <ProtectedRoute allowedRoles={["user", "admin"]}>
                 <UserAccountPage />
               </ProtectedRoute>
             }
           />
 
-
-
-          <Route path="/" element={<UserPostsPage />} />
-          <Route path="/post/:postId" element={<PostDetail />} />
-
+          <Route
+            path="/post/:postId"
+            element={
+              <ProtectedRoute allowedRoles={["user", "admin"]}>
+                <PostDetail />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
-
-
     </div>
   );
 }

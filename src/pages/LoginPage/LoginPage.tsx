@@ -4,6 +4,7 @@ import { login } from '../../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 import "./index.scss";
+import { authorizationAdmin, authorizationUser } from '../../constants/authorizationInfo';
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,10 +14,10 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    if (username === 'admin' && password === 'admin') {
+    if (username === authorizationAdmin.username && password === authorizationAdmin.password) {
       dispatch(login({ role: 'admin' }));
       navigate('/admin-dashboard');
-    } else if (username === 'user' && password === 'user') {
+    } else if (username === authorizationUser.username && password === authorizationUser.password) {
       dispatch(login({ role: 'user' }));
       navigate('/');
     } else {
