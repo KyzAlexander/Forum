@@ -1,6 +1,6 @@
 # Forum
 
-[## Deploy](https://my-forum.netlify.app)
+## [Deploy](https://my-forum.netlify.app)
 
 Небольшое описание как пользоваться форумом.
 
