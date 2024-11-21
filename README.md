@@ -1,13 +1,13 @@
 # Forum
 
-[##Deploy](https://my-forum.netlify.app)
+[## Deploy](https://my-forum.netlify.app)
 
-Небольшое описание как пользоваться форумом
+Небольшое описание как пользоваться форумом.
 
 ### Вход для users:
 
-**username:** user
-**password:** user
+**username:** user<br>
+**password:** user<br>
 
 При нажатии на имя автора постов, вы перенаправляетесь в личный кабинет этого пользователя.
 Чтобы в него попасть, надо ввести пароль.
@@ -17,5 +17,5 @@
 
 ### Вход для admins:
 
-**username:** admin
+**username:** admin<br>
 **password:** admin
