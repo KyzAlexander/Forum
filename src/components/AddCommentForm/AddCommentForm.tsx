@@ -1,19 +1,21 @@
 import React from "react";
 import "./index.scss";
 
-export const AddCommentForm: React.FC<{ onAddComment: (commentBody: string) => void }> = ({ onAddComment }) => {
-  const [comment, setComment] = React.useState('');
+const AddCommentForm: React.FC<{
+  onAddComment: (commentBody: string) => void;
+}> = ({ onAddComment }) => {
+  const [comment, setComment] = React.useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (comment.trim()) {
       onAddComment(comment);
-      setComment('');
+      setComment("");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className='add-comment-form'>
+    <form onSubmit={handleSubmit} className="add-comment-form">
       <input
         type="text"
         value={comment}
@@ -24,3 +26,5 @@ export const AddCommentForm: React.FC<{ onAddComment: (commentBody: string) => v
     </form>
   );
 };
+
+export default AddCommentForm;

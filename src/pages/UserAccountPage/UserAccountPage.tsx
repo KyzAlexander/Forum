@@ -13,8 +13,14 @@ import {
   deletePostById,
 } from "../../redux/slices/postsSlice";
 import { usersPasswords } from "../../constants/authorizationInfo";
-
+import AuthenticationForm from "../../components/AuthenticationForm/AuthenticationForm";
+import Loader from "../../components/Loader/Loader";
+import EditableUserForm from "../../components/EditableUserForm/EditableUserForm";
+import BackToLoginButton from "../../components/BackToLoginButton/BackToLoginButton";
 import "./index.scss";
+
+
+
 
 const UserAccountPage: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -28,6 +34,8 @@ const UserAccountPage: React.FC = () => {
     (state: RootState) => state.posts
   );
 
+  const isLoading = postsLoading || usersLoading;
+
   const user = users.find((u) => u.id === Number(userId));
   const userPosts = posts.filter((post) => post.userId === Number(userId));
 
@@ -35,7 +43,6 @@ const UserAccountPage: React.FC = () => {
     name: user?.name,
     email: user?.email,
   });
-
   const [isEditing, setIsEditing] = useState(false);
   const [newPost, setNewPost] = useState<Omit<Post, "id" | "userId">>({
     title: "",
@@ -44,9 +51,6 @@ const UserAccountPage: React.FC = () => {
     disliked: false,
     favorite: false,
   });
-
-  const isLoading = postsLoading || usersLoading;
-
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -115,26 +119,22 @@ const UserAccountPage: React.FC = () => {
     dispatch(deletePostById(postId));
   };
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
+
+  if (isLoading) {
+    return <Loader />;
+  }
   if (!user) {
     return <p>User not found</p>;
   }
-
   if (!isAuthenticated) {
     return (
-      <div className="user-authentication">
-        <h2>Enter password for {user.name}</h2>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter password"
-        />
-        <button onClick={handleLogin}>Ok</button>
-      </div>
+      <AuthenticationForm
+        userName={user.name}
+        password={password}
+        onPasswordChange={(e) => setPassword(e.target.value)}
+        onLogin={handleLogin}
+      />
     );
   }
 
@@ -146,27 +146,11 @@ const UserAccountPage: React.FC = () => {
 
       <h1>User Details</h1>
       {isEditing ? (
-        <div className="user-edit-form">
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={editableUser?.name || ""}
-              onChange={handleUserChange}
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={editableUser?.email || ""}
-              onChange={handleUserChange}
-            />
-          </label>
-          <button onClick={handleSaveUser}>Save</button>
-        </div>
+        <EditableUserForm
+          user={editableUser}
+          onChange={handleUserChange}
+          onSave={handleSaveUser}
+        />
       ) : (
         <div className="user-info">
           <p>
@@ -209,6 +193,7 @@ const UserAccountPage: React.FC = () => {
         />
         <button onClick={handleAddPost}>Add Post</button>
       </div>
+      <BackToLoginButton />
     </div>
   );
 };

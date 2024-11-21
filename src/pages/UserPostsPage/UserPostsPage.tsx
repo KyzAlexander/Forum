@@ -10,7 +10,10 @@ import {
 } from "../../redux/slices/postsSlice";
 import { fetchCommentsByPostId } from "../../redux/slices/commentsSlice";
 import UserWithPosts from "../../components/UserWithPosts/UserWithPosts";
+import Loader from "../../components/Loader/Loader";
+import BackToLoginButton from "../../components/BackToLoginButton/BackToLoginButton";
 import "./index.scss";
+
 
 const UserPostsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -52,9 +55,7 @@ const UserPostsPage: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <div className="loading-spinner">
-          <p>LOADING ....</p>
-        </div>
+        <Loader />
       ) : (
         <div className="user-posts-page">
           <h1>User Posts</h1>
@@ -113,6 +114,7 @@ const UserPostsPage: React.FC = () => {
                   />
                 ))}
           </div>
+          <BackToLoginButton />
         </div>
       )}
     </>

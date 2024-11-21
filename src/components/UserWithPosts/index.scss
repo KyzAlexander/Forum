@@ -29,14 +29,9 @@
     text-align: center;
   }
 
-  .link {
-    transition: color 0.3s ease; 
-    text-decoration: underline #ffffff;
-    
-  }
-  .link:hover {
-    text-decoration: underline #007bff;   
-  }
+  .link {    
+    text-decoration: none;    
+  }  
 
   .posts {
     .post {

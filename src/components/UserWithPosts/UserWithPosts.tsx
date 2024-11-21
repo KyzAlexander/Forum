@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AiFillDislike, AiFillLike } from "react-icons/ai"
+import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 
 import "./index.scss";
@@ -55,20 +55,23 @@ const UserWithPosts: React.FC<UserWithPostsProps> = ({
           </Link>
           <p>{post.body}</p>
           <div className="post-actions">
-            <div
-              className="like-btn"
-              onClick={() => onToggleLike(post.id)}
-            >
+            <div className="like-btn" onClick={() => onToggleLike(post.id)}>
               <AiFillLike size={30} color={post.liked ? "f0768b" : "#ccc"} />
             </div>
             <div
               className="dislike-btn"
               onClick={() => onToggleDislike(post.id)}
             >
-              <AiFillDislike size={30} color={post.disliked ? "f0768b" : "#ccc"} />
+              <AiFillDislike
+                size={30}
+                color={post.disliked ? "f0768b" : "#ccc"}
+              />
             </div>
 
-            <div className="favorites-btn" onClick={() => onToggleFavorite(post.id)}>
+            <div
+              className="favorites-btn"
+              onClick={() => onToggleFavorite(post.id)}
+            >
               <FaStar size={30} color={post.favorite ? "#ffd700" : "#ccc"} />
             </div>
           </div>

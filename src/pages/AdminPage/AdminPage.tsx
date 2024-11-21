@@ -4,7 +4,10 @@ import { fetchUsers } from "../../redux/slices/usersSlice";
 import { fetchPosts } from "../../redux/slices/postsSlice";
 import { AppDispatch, RootState } from "../../redux/store";
 import AdminUserCard from "../../components/AdminUserCard/AdminUserCard";
+import Loader from "../../components/Loader/Loader";
+import BackToLoginButton from "../../components/BackToLoginButton/BackToLoginButton";
 import "./index.scss";
+
 
 const AdminPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,7 +49,7 @@ const AdminPage: React.FC = () => {
 
       <h2 className="admin-page__section-title">Users</h2>
       {isLoading ? (
-        <p className="admin-page__loading">Loading ...</p>
+        <Loader />
       ) : (
         <>
           {filteredUserId === null
@@ -68,6 +71,7 @@ const AdminPage: React.FC = () => {
               ))}
         </>
       )}
+      <BackToLoginButton />
     </div>
   );
 };

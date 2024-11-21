@@ -12,8 +12,10 @@ import {
 import { addComment } from "../../redux/slices/commentsSlice";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
-import { AddCommentForm } from "../AddCommentForm/AddCommentForm";
+import AddCommentForm from "../AddCommentForm/AddCommentForm";
+import BackToLoginButton from "../BackToLoginButton/BackToLoginButton";
 import "./index.scss";
+
 
 const PostDetail: React.FC = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -83,6 +85,7 @@ const PostDetail: React.FC = () => {
           </div>
         </div>
       )}
+      <BackToLoginButton />
     </>
   );
 };

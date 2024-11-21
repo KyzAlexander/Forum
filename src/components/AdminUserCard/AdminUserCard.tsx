@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserProfile } from "../../redux/slices/usersSlice";
-import { deletePost, movePostToTop, swapPosts } from "../../redux/slices/postsSlice";
+import {
+  deletePost,
+  movePostToTop,
+  swapPosts,
+} from "../../redux/slices/postsSlice";
 import { AppDispatch } from "../../redux/store";
 
 import "./index.scss";
