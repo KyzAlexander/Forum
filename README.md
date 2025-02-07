@@ -19,3 +19,14 @@
 
 **username:** admin<br>
 **password:** admin
+
+### Используемые технологии:
+
+- TyprScript
+- React
+- React-router-dom
+- React-icon
+- SASS 
+- Redux
+- Redux-toolkit
+- Axios
