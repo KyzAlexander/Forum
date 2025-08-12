@@ -26,9 +26,12 @@ interface Post {
 interface AdminUserCardProps {
   user: User;
   posts: Post[];
+  comments: Record<number, { id: number; body: string }[]>;
+  openComments: Record<number, boolean>;
+  onToggleComments: (postId: number) => void;
 }
 
-const AdminUserCard: React.FC<AdminUserCardProps> = ({ user, posts }) => {
+const AdminUserCard: React.FC<AdminUserCardProps> = ({ user, posts, comments, openComments, onToggleComments }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [editingUser, setEditingUser] = useState<number | null>(null);
@@ -131,6 +134,23 @@ const AdminUserCard: React.FC<AdminUserCardProps> = ({ user, posts }) => {
               </button>
             )}
           </div>
+          <div className="comments-toggle-btn">
+            <button onClick={() => onToggleComments(post.id)}>
+              {openComments[post.id] ? "Hide Comments" : "Show Comments"}
+            </button>
+          </div>
+          {openComments[post.id] && (
+            <div className="comments-section">
+              <h4>Comments</h4>
+              <ul>
+                {(comments[post.id] || []).map((comment) => (
+                  <li key={comment.id}>
+                    <p>{comment.body}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       ))}
     </div>

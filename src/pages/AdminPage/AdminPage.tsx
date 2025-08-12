@@ -8,7 +8,6 @@ import Loader from "../../components/Loader/Loader";
 import BackToLoginButton from "../../components/BackToLoginButton/BackToLoginButton";
 import "./index.scss";
 
-
 const AdminPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -18,8 +17,20 @@ const AdminPage: React.FC = () => {
   const { posts, loading: postsLoading } = useSelector(
     (state: RootState) => state.posts
   );
+  const { comments, loading: commentsLoading } = useSelector(
+    (state: RootState) => state.comments
+  );
 
-  const isLoading = usersLoading || postsLoading;
+  const [openComments, setOpenComments] = useState<Record<number, boolean>>({});
+
+  const toggleComments = (postId: number) => {
+    setOpenComments((prevState) => ({
+      ...prevState,
+      [postId]: !prevState[postId],
+    }));
+  };
+
+  const isLoading = usersLoading || postsLoading || commentsLoading;
 
   const [filteredUserId, setFilteredUserId] = useState<number | null>(null);
 
@@ -30,25 +41,44 @@ const AdminPage: React.FC = () => {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  const filteredUsers = filteredUserId !== null
-    ? users.filter(u => u.id === filteredUserId)
-    : users;
+  const filteredUsers =
+    filteredUserId !== null
+      ? users.filter((u) => u.id === filteredUserId)
+      : users;
 
   const totalPages = filteredUsers.length;
   const currentUser = filteredUsers[currentPage - 1];
 
-  const currentUserPosts = currentUser ? posts.filter(p => p.userId === currentUser.id) : [];
+  const currentUserPosts = currentUser
+    ? posts.filter((p) => p.userId === currentUser.id)
+    : [];
 
   const getPageNumbers = () => {
-    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (totalPages <= 7)
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
 
     if (currentPage <= 4) {
       return [1, 2, 3, 4, "...", totalPages];
     }
     if (currentPage >= totalPages - 3) {
-      return [1, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+      return [
+        1,
+        "...",
+        totalPages - 3,
+        totalPages - 2,
+        totalPages - 1,
+        totalPages,
+      ];
     }
-    return [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
+    return [
+      1,
+      "...",
+      currentPage - 1,
+      currentPage,
+      currentPage + 1,
+      "...",
+      totalPages,
+    ];
   };
 
   const handlePageChange = (page: number) => {
@@ -86,7 +116,13 @@ const AdminPage: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : currentUser ? (
-        <AdminUserCard user={currentUser} posts={currentUserPosts} />
+        <AdminUserCard
+          user={currentUser}
+          posts={currentUserPosts}
+          comments={comments}
+          openComments={openComments}
+          onToggleComments={toggleComments}
+        />
       ) : (
         <p>No users found.</p>
       )}
@@ -103,7 +139,9 @@ const AdminPage: React.FC = () => {
 
           {getPageNumbers().map((page, idx) =>
             page === "..." ? (
-              <span key={idx} className="dots">...</span>
+              <span key={idx} className="dots">
+                ...
+              </span>
             ) : (
               <button
                 key={idx}
