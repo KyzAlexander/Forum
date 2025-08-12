@@ -1,8 +1,9 @@
 .user {
   background-color: #444444;  
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  
+  max-width: 1000px;
+  width: 100%;
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   &:hover {
@@ -67,8 +68,11 @@
 
       .post-actions {
         display: flex;
-        gap: 15px;
+        max-width: 150px;
+        width: 100%;
+        gap: 10px;
         justify-content: space-between;
+        align-items: center;
 
         .like-btn, .dislike-btn, .favorites-btn {
           cursor: pointer;

@@ -12,6 +12,7 @@ import { fetchCommentsByPostId } from "../../redux/slices/commentsSlice";
 import UserWithPosts from "../../components/UserWithPosts/UserWithPosts";
 import Loader from "../../components/Loader/Loader";
 import BackToLoginButton from "../../components/BackToLoginButton/BackToLoginButton";
+import FavoritesPostsButton from "../../components/FavoritesPostsButton/FavoritesPostsButton";
 import "./index.scss";
 
 const UserPostsPage: React.FC = () => {
@@ -133,7 +134,6 @@ const UserPostsPage: React.FC = () => {
               const user = users.find((u) => u.id === Number(userId));
               if (!user) return null;
 
-
               return (
                 <UserWithPosts
                   key={user.id}
@@ -187,6 +187,8 @@ const UserPostsPage: React.FC = () => {
             </div>
           )}
           <BackToLoginButton />
+          <FavoritesPostsButton />
+
         </div>
       )}
     </>

@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UserAccountPage from "./pages/UserAccountPage/UserAccountPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import "./styles/_App.scss";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 
 function App() {
   return (
@@ -13,6 +14,14 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute allowedRoles={["user", "admin"]}>
+                <FavoritesPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/"
             element={
