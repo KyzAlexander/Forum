@@ -19,9 +19,6 @@ import EditableUserForm from "../../components/EditableUserForm/EditableUserForm
 import BackToLoginButton from "../../components/BackToLoginButton/BackToLoginButton";
 import "./index.scss";
 
-
-
-
 const UserAccountPage: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
@@ -118,8 +115,6 @@ const UserAccountPage: React.FC = () => {
   const handleDeletePost = (postId: number) => {
     dispatch(deletePostById(postId));
   };
-
-
 
   if (isLoading) {
     return <Loader />;

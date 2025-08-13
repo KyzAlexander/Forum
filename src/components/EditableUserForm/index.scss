@@ -33,7 +33,9 @@
   }
 }
 
-.user-edit-form button {    
+.user-edit-form button { 
+  max-width: 100px;
+  width: 100%;   
   padding: 10px 20px;
   background-color: #28a745;
   color: white;

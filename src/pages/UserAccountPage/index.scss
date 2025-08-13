@@ -1,4 +1,4 @@
-.user-detail-page {
+.user-detail-page {  
   display: flex;
   flex-direction: column;  
   align-items: center;
@@ -6,11 +6,12 @@
   color: #e0e0e0; 
   padding: 20px;
   border-radius: 8px;
-  margin: 20px auto;
-  max-width: 1400px;
-  width: 100%;
+  margin: 20px auto;  
   
   .back-button {
+    position: fixed;
+    top: 15px; 
+    left: 15px;
     align-self: flex-start;
     padding: 10px 20px;
     background-color: #007bff;
@@ -45,7 +46,9 @@
     font-size: 1.2rem;
   }
   
-  .user-info button {    
+  .user-info button { 
+    max-width: 100px;
+    width: 100%;   
     padding: 10px 20px;
     background-color: #28a745;
     color: white;
@@ -65,14 +68,14 @@
     flex-wrap: wrap; 
     gap: 20px; 
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-bottom: 20px;      
 
-    .post {
+    .post { 
+      width: calc(45% - 20px);           
       background-color: #444;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      width: calc(33.333% - 20px); 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);      
       color: white;
       
       h3 {
@@ -128,7 +131,10 @@
       }
     }
 
-    button {
+    button {      
+      max-width: 150px;
+      width: 100%;
+      margin: 0 auto;
       padding: 12px;
       font-size: 1rem;
       background-color: #007bff;
