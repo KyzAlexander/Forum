@@ -1,13 +1,13 @@
 import "./index.scss";
 
-interface AuthenticationFormProps {
+interface IAuthenticationFormProps {
   userName: string;
   password: string;
   onPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onLogin: () => void;
 }
 
-const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
+const AuthenticationForm: React.FC<IAuthenticationFormProps> = ({
   userName,
   password,
   onPasswordChange,

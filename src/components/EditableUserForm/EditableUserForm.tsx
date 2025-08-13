@@ -1,12 +1,12 @@
 import "./index.scss";
 
-interface EditableUserFormProps {
+interface IEditableUserFormProps {
   user: { name: string | undefined; email: string | undefined };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSave: () => void;
 }
 
-const EditableUserForm: React.FC<EditableUserFormProps> = ({
+const EditableUserForm: React.FC<IEditableUserFormProps> = ({
   user,
   onChange,
   onSave,

@@ -23,7 +23,7 @@ interface Post {
   body: string;
 }
 
-interface AdminUserCardProps {
+interface IAdminUserCardProps {
   user: User;
   posts: Post[];
   comments: Record<number, { id: number; body: string }[]>;
@@ -31,7 +31,7 @@ interface AdminUserCardProps {
   onToggleComments: (postId: number) => void;
 }
 
-const AdminUserCard: React.FC<AdminUserCardProps> = ({ user, posts, comments, openComments, onToggleComments }) => {
+const AdminUserCard: React.FC<IAdminUserCardProps> = ({ user, posts, comments, openComments, onToggleComments }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [editingUser, setEditingUser] = useState<number | null>(null);

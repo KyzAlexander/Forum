@@ -3,12 +3,12 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-interface ProtectedRouteProps {
+interface IProtectedRouteProps {
   children: React.ReactNode;
   allowedRoles: ("user" | "admin")[];
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
   children,
   allowedRoles,
 }) => {

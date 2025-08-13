@@ -188,7 +188,6 @@ const UserPostsPage: React.FC = () => {
           )}
           <BackToLoginButton />
           <FavoritesPostsButton />
-
         </div>
       )}
     </>

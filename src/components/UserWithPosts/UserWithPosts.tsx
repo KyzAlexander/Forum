@@ -21,7 +21,7 @@ interface Post {
   favorite: boolean;
 }
 
-interface UserWithPostsProps {
+interface IUserWithPostsProps {
   user: User;
   posts: Post[];
   comments: Record<number, { id: number; body: string }[]>;
@@ -32,7 +32,7 @@ interface UserWithPostsProps {
   onToggleComments: (postId: number) => void;
 }
 
-const UserWithPosts: React.FC<UserWithPostsProps> = ({
+const UserWithPosts: React.FC<IUserWithPostsProps> = ({
   user,
   posts,
   comments,
